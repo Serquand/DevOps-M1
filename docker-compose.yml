@@ -1,33 +1,51 @@
-version: "3.8"
+version: '3.7'
 
 services:
-  mongo:
-    image: mongo
-    restart: always
+  jenkins-master:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-master
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    networks:
+      - jenkins-network
     volumes:
-      - mongodb_data:/data/db
-    environment:
-      MONGODB_INITDB_ROOT_USERNAME: username
-      MONGODB_INITDB_ROOT_PASSWORD: password
-    ports:
-      - 27017:27017
+      - jenkins_home:/var/jenkins_home
 
-  backend:
-    build: ./backend
+  deployment-agent:
+    image: jenkins/inbound-agent:latest
+    container_name: deployment-agent
     depends_on:
-      - mongo
+      - jenkins-master
     environment:
-      - MONGO_HOST=mongo
-    ports:
-      - "3001:3001"
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=DeploymentNode
+      - JENKINS_SECRET=$DEPLOYMENT_AGENT_SECRET
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    networks:
+      - jenkins-network
+    volumes:
+      - jenkins_agent:/home/jenkins/agent
 
-  frontend:
-    build: ./frontend
+  testing-agent:
+    image: jenkins/inbound-agent:latest
+    container_name: testing-agent
     depends_on:
-      - backend
-      - mongo
-    ports:
-      - "3000:3000"
+      - jenkins-master
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=TestingNode
+      - JENKINS_SECRET=$TESTING_AGENT_SECRET
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    networks:
+      - jenkins-network
+    volumes:
+      - jenkins_agent:/home/jenkins/agent
+
+networks:
+  jenkins-network:
+    driver: bridge
 
 volumes:
-  mongodb_data:
+  jenkins_home:
+  jenkins_agent:
