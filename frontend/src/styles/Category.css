@@ -1,0 +1,17 @@
+.category {
+    width: 80%;
+    margin: auto;
+    padding-bottom: 30px;
+}
+
+.category-title {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.category-title span {
+    font-weight: 100;
+    font-size: 15px;
+    display: inline-block;
+    padding-left: 10px;
+}

@@ -1,0 +1,4 @@
+# Each file here won't be added into the image
+node-modules
+npm-debug.log
+package-lock.json
