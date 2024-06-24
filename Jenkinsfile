@@ -36,8 +36,6 @@ pipeline {
                         error 'Stopping pipeline due to test failures.'
                     }
                 }
-                always {
-                }
             }
         }
 
