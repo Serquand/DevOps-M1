@@ -39,18 +39,18 @@ pipeline {
         //     }
         // }
 
-        // stage('Deploy') {
-        //     when {
-        //         expression {
-        //             currentBuild.result == 'SUCCESS'
-        //         }
-        //     }
-        //     steps {
-        //         script {
-        //             echo 'Deploying...'
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            when {
+                expression {
+                    false
+                }
+            }
+            steps {
+                script {
+                    echo 'Deploying...'
+                }
+            }
+        }
     }
 
     post {
