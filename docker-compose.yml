@@ -12,35 +12,35 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
 
-  deployment-agent:
-    image: jenkins/inbound-agent:latest
-    container_name: deployment-agent
-    depends_on:
-      - jenkins-master
-    environment:
-      - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=DeploymentNode
-      - JENKINS_SECRET=$DEPLOYMENT_AGENT_SECRET
-      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
-    networks:
-      - jenkins-network
-    volumes:
-      - jenkins_agent:/home/jenkins/agent
+  # deployment-agent:
+  #   image: jenkins/inbound-agent:latest
+  #   container_name: deployment-agent
+  #   depends_on:
+  #     - jenkins-master
+  #   environment:
+  #     - JENKINS_URL=http://jenkins-master:8080
+  #     - JENKINS_AGENT_NAME=DeploymentNode
+  #     - JENKINS_SECRET=$DEPLOYMENT_AGENT_SECRET
+  #     - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+  #   networks:
+  #     - jenkins-network
+  #   volumes:
+  #     - jenkins_agent:/home/jenkins/agent
 
-  testing-agent:
-    image: jenkins/inbound-agent:latest
-    container_name: testing-agent
-    depends_on:
-      - jenkins-master
-    environment:
-      - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=TestingNode
-      - JENKINS_SECRET=$TESTING_AGENT_SECRET
-      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
-    networks:
-      - jenkins-network
-    volumes:
-      - jenkins_agent:/home/jenkins/agent
+  # testing-agent:
+    # image: jenkins/inbound-agent:latest
+    # container_name: testing-agent
+    # depends_on:
+    #   - jenkins-master
+    # environment:
+    #   - JENKINS_URL=http://jenkins-master:8080
+    #   - JENKINS_AGENT_NAME=TestingNode
+    #   - JENKINS_SECRET=$TESTING_AGENT_SECRET
+    #   - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    # networks:
+    #   - jenkins-network
+    # volumes:
+    #   - jenkins_agent:/home/jenkins/agent
 
 networks:
   jenkins-network:
