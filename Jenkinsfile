@@ -20,6 +20,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
+                    error 'Simulated test failure!'
                 }
             }
             post {
@@ -27,7 +28,6 @@ pipeline {
                     script {
                         echo 'Tests passed!'
                         currentBuild.result = "SUCCESS"
-                        echo "currentBuild.result => ${currentBuild.result}"
                     }
                 }
                 failure {
@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    currentBuild.result == 'SUCCESS'
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
                 }
             }
             steps {
