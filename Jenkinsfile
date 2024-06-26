@@ -13,36 +13,37 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     agent {
-        //         label 'TestingNode'
-        //     }
-        //     steps {
-        //         script {
-        //             echo 'Running tests...'
-        //         }
-        //     }
-        //     post {
-        //         success {
-        //             script {
-        //                 echo 'Tests passed!'
-        //                 currentBuild.result = 'SUCCESS'
-        //             }
-        //         }
-        //         failure {
-        //             script {
-        //                 echo 'Tests failed!'
-        //                 currentBuild.result = 'FAILURE'
-        //                 error 'Stopping pipeline due to test failures.'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Test') {
+            // agent {
+                // label 'TestingNode'
+            // }
+            steps {
+                script {
+                    echo 'Running tests...'
+                    sh ./test.sh
+                }
+            }
+            post {
+                success {
+                    script {
+                        echo 'Tests passed!'
+                        currentBuild.result = true
+                    }
+                }
+                failure {
+                    script {
+                        echo 'Tests failed!'
+                        currentBuild.result = false
+                        error 'Stopping pipeline due to test failures.'
+                    }
+                }
+            }
+        }
 
         stage('Deploy') {
             when {
                 expression {
-                    false
+                    currentBuild.result
                 }
             }
             steps {
