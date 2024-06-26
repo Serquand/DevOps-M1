@@ -18,7 +18,6 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    error 'Simulated test failure!'
                 }
             }
             post {

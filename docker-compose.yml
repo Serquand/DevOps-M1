@@ -19,8 +19,8 @@ services:
       - jenkins-master
     environment:
       - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=TestingNode
-      - JENKINS_SECRET=c4350d6a795822bfeb3be9917aaaef705eb805e4f1d3277290c81b8212174e58
+      - JENKINS_AGENT_NAME=DeploymentNode
+      - JENKINS_SECRET=db486a1427f831b6593b8df50d863acc2be6b6b22abd1fe8a673b81c1e07303b
       - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
     networks:
       - jenkins-network
@@ -34,8 +34,8 @@ services:
       - jenkins-master
     environment:
       - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=$TESTING_AGENT_NAME
-      - JENKINS_SECRET=$TESTING_AGENT_SECRET
+      - JENKINS_AGENT_NAME=TestingNode
+      - JENKINS_SECRET=c4350d6a795822bfeb3be9917aaaef705eb805e4f1d3277290c81b8212174e58
       - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
     networks:
       - jenkins-network
