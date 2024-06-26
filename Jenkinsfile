@@ -26,13 +26,13 @@ pipeline {
                 success {
                     script {
                         echo 'Tests passed!'
-                        currentBuild.result = true
+                        currentBuild.result = "SUCCESS"
                     }
                 }
                 failure {
                     script {
                         echo 'Tests failed!'
-                        currentBuild.result = false
+                        currentBuild.result = "FAILURE"
                         error 'Stopping pipeline due to test failures.'
                     }
                 }
