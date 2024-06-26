@@ -27,6 +27,7 @@ pipeline {
                     script {
                         echo 'Tests passed!'
                         currentBuild.result = "SUCCESS"
+                        echo $currentBuild.result
                     }
                 }
                 failure {
