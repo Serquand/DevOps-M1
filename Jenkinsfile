@@ -27,7 +27,7 @@ pipeline {
                     script {
                         echo 'Tests passed!'
                         currentBuild.result = "SUCCESS"
-                        echo $currentBuild.result
+                        echo "currentBuild.result => ${currentBuild.result}"
                     }
                 }
                 failure {
