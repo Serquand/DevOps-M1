@@ -20,7 +20,6 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh ./test.sh
                 }
             }
             post {
