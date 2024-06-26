@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        agent { label 'testing' }
-
         stage('Build') {
+            agent { label 'testing' }
+
             steps {
                 script {
                     echo "Building stage... Nothing to do here !"
@@ -50,9 +50,9 @@ pipeline {
             }
         }
 
-        agent { label 'deployment' }
-
         stage('Deploy') {
+            agent { label 'deployment' }
+
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
