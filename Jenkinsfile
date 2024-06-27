@@ -55,6 +55,7 @@ pipeline {
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                    sh "node index.js"
                 }
             }
             steps {

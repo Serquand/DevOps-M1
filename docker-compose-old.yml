@@ -5,7 +5,7 @@ services:
     image: jenkins/jenkins:lts
     container_name: jenkins-master
     ports:
-      - "8081:8080"
+      - "8082:8080"
       - "50000:50000"
     networks:
       - jenkins-network
