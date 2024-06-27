@@ -11,6 +11,7 @@ services:
       - jenkins-network
     volumes:
       - jenkins_home:/var/jenkins_home
+    restart: always
 
   deployment-agent:
     image: jenkins/inbound-agent:latest
@@ -26,6 +27,7 @@ services:
       - jenkins-network
     volumes:
       - jenkins_agent:/home/jenkins/agent
+    restart: always
 
   testing-agent:
     image: jenkins/inbound-agent:latest
@@ -41,6 +43,7 @@ services:
       - jenkins-network
     volumes:
       - jenkins_agent:/home/jenkins/agent
+    restart: always
 
 networks:
   jenkins-network:
