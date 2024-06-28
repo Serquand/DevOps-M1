@@ -54,7 +54,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'deployment' }
+            // agent { label 'deployment' }
 
             when {
                 expression {
