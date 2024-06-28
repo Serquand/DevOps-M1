@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'Node22'
+    }
+
     stages {
         stage('Build') {
             // agent { label 'testing' }

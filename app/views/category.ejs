@@ -1,0 +1,8 @@
+<script defer src="/public/scripts/app.js"></script>
+<div class="category">
+    <h2 class="category-title">
+        <%= title %>
+        <span>&nbsp;(<%= tasks.length %>)</span>
+    </h2>
+    <%- include('listTask', { tasks: tasks, complete: complete, onUpdateTask: onUpdateTask }) %>
+</div>

@@ -1,0 +1,12 @@
+<script defer src="/public/scripts/app.js"></script>
+<div class="list-tasks-container">
+    <% tasks.forEach(task => { %>
+        <%- include('task', {
+            title: task.title,
+            description: task.description,
+            dueDate: task.due_date,
+            isComplete: complete,
+            id: task._id
+        }) %>
+    <% }) %>
+</div>

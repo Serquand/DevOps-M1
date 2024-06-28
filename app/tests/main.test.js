@@ -1,7 +1,7 @@
-const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const todos = require('../routes/todos.routes');
+import request from 'supertest';
+import express from 'express';
+import mongoose from 'mongoose';
+import todos from '../routes/todos.routes';
 
 const app = express();
 app.use(express.json());
