@@ -70,6 +70,7 @@ pipeline {
                 script {
                     echo 'Deploying...'
                     sh '''
+                        pwd
                         cd app/
                         npm install
                         npm start
