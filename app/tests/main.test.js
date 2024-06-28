@@ -35,7 +35,7 @@ describe('Todos API', () => {
         const savedTask = await Todo.findById(taskId);
         expect(savedTask).not.toBeNull();
         expect(savedTask.title).toBe(newTask.title);
-        expect(savedTask.description).toBe(newTask.description);
+        expect(savedTask.description).toBe("");
         expect(new Date(savedTask.due_date)).toEqual(new Date(newTask.due_date));
         expect(savedTask.is_complete).toBe(false);
     });

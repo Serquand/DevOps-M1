@@ -24,7 +24,6 @@ pipeline {
                     echo 'Running tests...'
                     sh '''
                         cd app/
-                        ls
                         npm install
                         npm test
                     '''
@@ -60,7 +59,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'deployment' }
+            // agent { label 'deployment' }
 
             when {
                 expression {
