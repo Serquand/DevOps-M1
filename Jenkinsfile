@@ -7,7 +7,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            // agent { label 'testing' }
+            agent { label 'testing' }
 
             steps {
                 script {
@@ -17,7 +17,7 @@ pipeline {
         }
 
         stage('Test') {
-            // agent { label 'testing' }
+            agent { label 'testing' }
 
             steps {
                 script {
@@ -59,7 +59,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            // agent { label 'deployment' }
+            agent { label 'deployment' }
 
             when {
                 expression {
