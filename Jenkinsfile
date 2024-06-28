@@ -22,6 +22,12 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
+                    sh '''
+                        cd app/
+                        ls
+                        npm install
+                        npm test
+                    '''
                 }
             }
             post {

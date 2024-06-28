@@ -6,20 +6,23 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import todosRoutes from './routes/todos.routes.js'; // Add the .js extension
+import todosRoutes from './routes/todos.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-console.log('__filename:', __filename); // Debugging: Print __filename
-console.log('__dirname:', __dirname);   // Debugging: Print __dirname
+console.log('__filename:', __filename);
+console.log('__dirname:', __dirname);
 
 const port = 3001;
 
 main().catch((err) => console.log(err));
 
 async function main() {
-    console.log("Bite");
+    await mongoose.connect(`mongodb+srv://Serkan:J8zn3kGeLadw7fV7@cluster0.6smcpie.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    });
 
     const app = express();
     app.set('view engine', 'ejs');
@@ -49,13 +52,8 @@ async function main() {
             creationTaskRunning: false
         });
     });
-    console.log("Bite");
+
     app.listen(port, () => {
         console.log(`Server is listening on port: ${port}`);
     });
-    await mongoose.connect(`mongodb://${process.env.MONGO_HOST}:27017/todos`, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-    });
-    console.log("Bite 2");
 }

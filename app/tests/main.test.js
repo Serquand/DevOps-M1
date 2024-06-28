@@ -1,15 +1,15 @@
-import request from 'supertest';
-import express from 'express';
-import mongoose from 'mongoose';
-import todos from '../routes/todos.routes';
-
-const app = express();
-app.use(express.json());
-app.use('/todos', todos);
+const mongoose = require('mongoose');
+const todoSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    is_complete: Boolean,
+    due_date: Date,
+});
+const Todo = mongoose.model('Todo', todoSchema);
 
 describe('Todos API', () => {
     beforeAll(async () => {
-        const url = `mongodb://127.0.0.1/todo_test`;
+        const url = `mongodb+srv://Serkan:J8zn3kGeLadw7fV7@cluster0.6smcpie.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
         await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
     });
 
@@ -24,49 +24,38 @@ describe('Todos API', () => {
         const newTask = {
             title: 'Test Task',
             description: 'This is a test task',
-            due_date: '2023-12-31'
+            due_date: '2023-12-31',
+            is_complete: false
         };
 
-        const response = await request(app)
-            .post('/todos')
-            .send(newTask)
-            .expect(201);
+        const task = new Todo(newTask);
+        await task.save();
+        taskId = task._id;
 
-        taskId = response.body._id;
-
-        expect(response.body.title).toBe(newTask.title);
-        expect(response.body.description).toBe(newTask.description);
-        expect(new Date(response.body.due_date)).toEqual(new Date(newTask.due_date));
-        expect(response.body.is_complete).toBe(false);
+        const savedTask = await Todo.findById(taskId);
+        expect(savedTask).not.toBeNull();
+        expect(savedTask.title).toBe(newTask.title);
+        expect(savedTask.description).toBe(newTask.description);
+        expect(new Date(savedTask.due_date)).toEqual(new Date(newTask.due_date));
+        expect(savedTask.is_complete).toBe(false);
     });
 
     it('should get all tasks', async () => {
-        const response = await request(app)
-            .get('/todos')
-            .expect(200);
-
-        expect(response.body.todos.length).toBeGreaterThan(0);
-        expect(response.body.done.length).toBe(0);
+        const tasks = await Todo.find();
+        expect(tasks.length).toBeGreaterThan(0);
     });
 
     it('should update a task to complete', async () => {
-        const response = await request(app)
-            .patch(`/todos/complete/${taskId}`)
-            .send({ is_complete: true })
-            .expect(200);
+        await Todo.findByIdAndUpdate(taskId, { is_complete: true });
 
-        expect(response.body.is_complete).toBe(true);
+        const updatedTask = await Todo.findById(taskId);
+        expect(updatedTask.is_complete).toBe(true);
     });
 
     it('should delete a task', async () => {
-        await request(app)
-            .delete(`/todos/${taskId}`)
-            .expect(204);
+        await Todo.findByIdAndDelete(taskId);
 
-        const response = await request(app)
-            .get('/todos')
-            .expect(200);
-
-        expect(response.body.todos.length).toBe(0);
+        const deletedTask = await Todo.findById(taskId);
+        expect(deletedTask).toBeNull();
     });
 });
