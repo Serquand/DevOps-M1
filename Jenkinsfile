@@ -64,12 +64,16 @@ pipeline {
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                    sh "node index.js"
                 }
             }
             steps {
                 script {
                     echo 'Deploying...'
+                    sh '''
+                        cd app/
+                        npm install
+                        npm start
+                    '''
                 }
             }
         }
