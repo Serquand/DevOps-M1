@@ -1,13 +1,13 @@
-import Todo from "../models/todo.models.js"; // Add the .js extension
+const Todo = require("../schema/todo.model.js");
 
-export const getTodos = async (req, res) => {
+const getTodos = async (req, res) => {
     const todos = await Todo.find({ is_complete: false });
     const done = await Todo.find({ is_complete: true });
 
     res.status(200).send({todos, done});
 }
 
-export const createTodo = async (req, res) => {
+const createTodo = async (req, res) => {
     const todo = new Todo({
         title: req.body.title,
         description: req.body.description,
@@ -16,11 +16,10 @@ export const createTodo = async (req, res) => {
     });
 
     await todo.save();
-
     res.status(201).json(todo);
 }
 
-export const updateTodo = async (req, res) => {
+const updateTodo = async (req, res) => {
     try {
         const todo = await Todo.findOne({ _id: req.params.id });
 
@@ -35,7 +34,7 @@ export const updateTodo = async (req, res) => {
     }
 }
 
-export const deleteTodo = async (req, res) => {
+const deleteTodo = async (req, res) => {
     try {
         await Todo.deleteOne({ _id: req.params.id });
 
@@ -44,3 +43,5 @@ export const deleteTodo = async (req, res) => {
         res.status(404).json({ error: "Todo does not exist!" });
     }
 }
+
+module.exports = { getTodos, createTodo, updateTodo, deleteTodo };

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./main.js"></script>
+</head>
+<body>
+    <header>
+        <h1>DevOps M1 | Project</h1>
+        <button class="add-event">Add an event</button>
+    </header>
+
+    <div id="loader-layout" class="hidden">
+        <div id="loader" class="hidden"></div>
+    </div>
+
+    <div id="todo-container" class="task-container">
+        <h2>To Do List</h2>
+        <div id="todo-list"></div>
+    </div>
+
+    <div id="done-container" class="task-container">
+        <h2>Done List</h2>
+        <div id="done-list"></div>
+    </div>
+
+    <div class="modal">
+        <div class="modal-content">
+            <h3>Add a task</h3>
+            <div>
+                <div class="form-field">
+                    <label for="name-todo">Titre</label>
+                    <input type="text" placeholder="Name..." class="form-input" id="name-todo" />
+                </div>
+
+                <div class="form-field">
+                    <label for="author-todo">Description</label>
+                    <input type="text" placeholder="Author..." class="form-input" id="author-todo" />
+                </div>
+
+                <div class="form-field">
+                    <label for="due-date-todo">Due Date</label>
+                    <input type="date" placeholder="Name..." class="form-input" id="due-date-todo" />
+                </div>
+
+                <button class="submit-button">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

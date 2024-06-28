@@ -73,7 +73,7 @@ pipeline {
                         pwd
                         cd app/
                         npm install
-                        npm start
+                        npm start &
                     '''
                 }
             }
