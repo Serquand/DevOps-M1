@@ -7,27 +7,10 @@ services:
     ports:
       - "8082:8080"
       - "50000:50000"
-      - "3002:3000"
     networks:
       - jenkins-network
     volumes:
       - jenkins_home:/var/jenkins_home
-    restart: always
-
-  deployment-agent:
-    image: jenkins/inbound-agent:latest
-    container_name: deployment-agent
-    depends_on:
-      - jenkins-master
-    environment:
-      - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=DeploymentNode
-      - JENKINS_SECRET=db486a1427f831b6593b8df50d863acc2be6b6b22abd1fe8a673b81c1e07303b
-      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
-    networks:
-      - jenkins-network
-    volumes:
-      - jenkins_agent:/home/jenkins/agent
     restart: always
 
   testing-agent:

@@ -1,9 +1,7 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'Node22'
-    }
+    tools { nodejs 'Node22' }
 
     stages {
         stage('Build') {
@@ -59,8 +57,6 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'deployment' }
-
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
@@ -69,11 +65,46 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying...'
-                    sh '''
-                        cd app/
-                        npm install
-                        npm start
-                    '''
+                    sh """
+                        sudo apt-get install sshpass -y
+                        sshpass -p "${env.VPS_PASSWORD}" rsync -avz --exclude 'node_modules' --exclude ".git" -e "ssh -p ${env.VPS_PORT}" . ${env.VPS_USER}@${env.VPS_IP}:${env.VPS_FOLDER_LOCATION}
+                        sshpass -p "${env.VPS_PASSWORD}" ssh -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
+                    """
+                }
+            }
+        }
+
+        stage('User Acceptance Test') {
+            agent { label 'testing' }
+
+            steps {
+                sh """
+                    cd app/
+                    npm install
+                    npm test:user_acceptance
+                """
+            }
+
+            post {
+                success {
+                    script {
+                        sh """
+                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
+                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            -H "Content-Type: application/json" \
+                            -d '{\"content\":\"The user acceptance test is valid ! The new application is now online !\"}'
+                        """
+                    }
+                }
+                failure {
+                    script {
+                        sh """
+                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
+                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            -H "Content-Type: application/json" \
+                            -d '{\"content\":\"The user acceptance test is not valid ! Something goes wrong when releasing the app and you need to inspect what happened !\"}'
+                        """
+                    }
                 }
             }
         }

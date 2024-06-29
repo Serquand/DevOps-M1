@@ -5,7 +5,8 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.17.1",
-    "mongoose": "^5.9.18"
+    "mongoose": "^5.9.18",
+    "puppeteer": "^22.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
@@ -14,7 +15,8 @@
     "supertest": "^7.0.0"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest ./tests/main.test.js",
+    "test:user_acceptance": "jest ./tests/userAcceptance.test.js",
     "start": "node server.js"
   }
 }
