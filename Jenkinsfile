@@ -66,7 +66,7 @@ pipeline {
                 script {
                     echo 'Deploying...'
                     sh """
-                        sudo apt-get install sshpass -y
+                        apt-get install sshpass -y
                         sshpass -p "${env.VPS_PASSWORD}" rsync -avz --exclude 'node_modules' --exclude ".git" -e "ssh -p ${env.VPS_PORT}" . ${env.VPS_USER}@${env.VPS_IP}:${env.VPS_FOLDER_LOCATION}
                         sshpass -p "${env.VPS_PASSWORD}" ssh -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
                     """
