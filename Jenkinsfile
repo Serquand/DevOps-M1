@@ -81,7 +81,7 @@ pipeline {
                 sh """
                     cd app/
                     npm install
-                    npm test:user_acceptance
+                    npm run test:user_acceptance
                 """
             }
 
