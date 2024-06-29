@@ -5,7 +5,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent { label 'testing' }
+            agent { label 'worker' }
 
             steps {
                 script {
@@ -15,7 +15,7 @@ pipeline {
         }
 
         stage('Test') {
-            agent { label 'testing' }
+            agent { label 'worker' }
 
             steps {
                 script {
@@ -75,7 +75,7 @@ pipeline {
         // }
 
         stage('User Acceptance Test') {
-            agent { label 'testing' }
+            agent { label 'worker' }
 
             steps {
                 sh """

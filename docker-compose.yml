@@ -20,8 +20,8 @@ services:
       - jenkins-master
     environment:
       - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=TestingNode
-      - JENKINS_SECRET=c4350d6a795822bfeb3be9917aaaef705eb805e4f1d3277290c81b8212174e58
+      - JENKINS_AGENT_NAME=Worker
+      - JENKINS_SECRET=98f98aa42eb22e27d390acfa1a9e5cb03995ec7080368b9a4f026f6c899373ef
       - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
     networks:
       - jenkins-network
