@@ -8,10 +8,7 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 describe('Todos API', () => {
-    beforeAll(async () => {
-        const url = `mongodb+srv://Serkan:J8zn3kGeLadw7fV7@cluster0.6smcpie.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-        await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    });
+    beforeAll(async () => mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }));
 
     afterAll(async () => {
         await mongoose.connection.db.dropDatabase();

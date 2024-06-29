@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 app.use("/event", eventRouter)
 
-mongoose.connect(`mongodb+srv://Serkan:J8zn3kGeLadw7fV7@cluster0.6smcpie.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`, {
+mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
 });
