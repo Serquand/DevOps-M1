@@ -56,23 +56,25 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-            // when {
-                // expression {
-                    // currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                // }
-            // }
-            // steps {
-                // script {
-                    // echo 'Deploying...'
-                    // sh """
-                        // apt-get install sshpass -y
-                        // sshpass -p "${env.VPS_PASSWORD}" rsync -avz --exclude 'node_modules' --exclude ".git" -e "ssh -p ${env.VPS_PORT}" . ${env.VPS_USER}@${env.VPS_IP}:${env.VPS_FOLDER_LOCATION}
-                        // sshpass -p "${env.VPS_PASSWORD}" ssh -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
-                    // """
-                // }
-            // }
-        // }
+        stage('Deploy') {
+            agent { label 'worker' }
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                script {
+                    echo 'Deploying...'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'vps_ssh_key', keyFileVariable: 'SSH_KEY')]) {
+                        sh """
+                            rsync -avz --exclude 'node_modules' --exclude ".git" -e "ssh -i $SSH_KEY -p ${env.VPS_PORT}" . ${env.VPS_USER}@${env.VPS_IP}:${env.VPS_FOLDER_LOCATION}
+                            ssh -i $SSH_KEY -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
+                        """
+                    }
+                }
+            }
+        }
 
         stage('User Acceptance Test') {
             agent { label 'worker' }
