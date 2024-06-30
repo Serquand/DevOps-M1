@@ -68,7 +68,6 @@ pipeline {
                     echo 'Deploying...'
                     withCredentials([sshUserPrivateKey(credentialsId: 'vps_ssh_key', keyFileVariable: 'SSH_KEY')]) {
                         sh """
-                            rsync -avz --exclude 'node_modules' --exclude ".git" -e "ssh -i $SSH_KEY -p ${env.VPS_PORT}" . ${env.VPS_USER}@${env.VPS_IP}:${env.VPS_FOLDER_LOCATION}
                             ssh -i $SSH_KEY -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
                         """
                     }
