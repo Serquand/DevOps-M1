@@ -70,8 +70,9 @@ pipeline {
                 script {
                     echo 'Deploying...'
                     script {
-                        sh 'npm install -g pm2'
-                        sh 'pm2 start index.js'
+                        sh 'cd app/'
+                        sh 'npm install'
+                        sh 'npm run start'
                     }
                 }
             }
