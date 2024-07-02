@@ -70,9 +70,13 @@ pipeline {
                 script {
                     echo 'Deploying...'
                     script {
-                        sh 'cd app/'
-                        sh 'npm install'
-                        sh 'npm run start'
+                        sh """
+                            ls
+                            cd app/
+                            ls
+                            npm install
+                            npm run start
+                        """
                     }
                 }
             }
