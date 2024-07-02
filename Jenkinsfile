@@ -66,11 +66,9 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying...'
-                    withCredentials([sshUserPrivateKey(credentialsId: 'vps_ssh_key', keyFileVariable: 'SSH_KEY')]) {
-                        sh """
-                            ssh -i $SSH_KEY -p ${env.VPS_PORT} ${env.VPS_USER}@${env.VPS_IP} "docker compose -f ${env.VPS_FOLDER_LOCATION}/deployment.yml up --build -d"
-                        """
-                    }
+                    sh """
+                        docker run hello-world
+                    """
                 }
             }
         }
