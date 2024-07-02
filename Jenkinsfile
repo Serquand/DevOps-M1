@@ -69,9 +69,11 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying...'
-                    sh """
-                        docker run hello-world
-                    """
+                    script {
+                        sh 'docker --version'
+
+                        sh 'docker run hello-world'
+                    }
                 }
             }
         }
