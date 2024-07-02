@@ -1,7 +1,10 @@
 pipeline {
     agent any
 
-    tools { nodejs 'Node22' }
+    tools {
+        nodejs 'Node22'
+        dockerTool 'docker'
+    }
 
     stages {
         stage('Build') {
