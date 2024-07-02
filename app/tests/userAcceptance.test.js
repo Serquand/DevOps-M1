@@ -7,7 +7,7 @@ describe('User Acceptance Test', () => {
     let website;
 
     beforeAll(async () => {
-        website = await fetch(`http://${process.env.VPS_IP}:3000`);
+        website = await fetch(`http://${process.env.HOST_IP}:3000`);
     });
 
     it('Is the website reachable', () => expect(website.status).toBe(200))
