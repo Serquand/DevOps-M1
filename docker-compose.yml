@@ -13,15 +13,33 @@ services:
       - jenkins_home:/var/jenkins_home
     restart: always
 
-  testing-agent:
+  worker-agent:
     image: jenkins/inbound-agent:latest
-    container_name: testing-agent
+    container_name: worker-agent
     depends_on:
       - jenkins-master
     environment:
       - JENKINS_URL=http://jenkins-master:8080
       - JENKINS_AGENT_NAME=Worker
       - JENKINS_SECRET=98f98aa42eb22e27d390acfa1a9e5cb03995ec7080368b9a4f026f6c899373ef
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    networks:
+      - jenkins-network
+    volumes:
+      - jenkins_agent:/home/jenkins/agent
+    restart: always
+
+  deployment-server:
+    image: jenkins/inbound-agent:latest
+    container_name: deployment-server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - jenkins-master
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=Deployment
+      - JENKINS_SECRET=f4aa1c9e090b363a3f9d2c62ae522b8fed33cdb2f455ae4b7c0f6c4471043a60
       - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
     networks:
       - jenkins-network
