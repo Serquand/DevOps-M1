@@ -71,9 +71,7 @@ pipeline {
                     echo 'Deploying...'
                     script {
                         sh """
-                            ls
                             cd app/
-                            ls
                             npm install
                             npm run start
                         """
