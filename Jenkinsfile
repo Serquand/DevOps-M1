@@ -71,7 +71,7 @@ pipeline {
                     echo 'Deploying...'
                     script {
                         sh 'npm install -g pm2'
-                        sh 'pm2 start app.js'
+                        sh 'pm2 start index.js'
                     }
                 }
             }
