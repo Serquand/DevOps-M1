@@ -70,7 +70,7 @@ pipeline {
                     echo 'Deploying...'
                     script {
                         sh """
-                            curl -X GET $env.VPS_HOST:3000/refresh
+                            curl -X GET $env.HOST_IP:3000/refresh
                         """
                     }
                 }
