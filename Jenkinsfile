@@ -33,8 +33,8 @@ pipeline {
                 success {
                     script {
                         sh """
-                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
-                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            curl -X POST "https://discord.com/api/v9/channels/$env.DISCORD_CHANNEL_ID/messages" \
+                            -H "Authorization: Bot $env.DISCORD_BOT_TOKEN" \
                             -H "Content-Type: application/json" \
                             -d '{\"content\":\"Build success ! The new version of the application will go up !\"}'
                         """
@@ -45,8 +45,8 @@ pipeline {
                 failure {
                     script {
                         sh """
-                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
-                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            curl -X POST "https://discord.com/api/v9/channels/$env.DISCORD_CHANNEL_ID/messages" \
+                            -H "Authorization: Bot $env.DISCORD_BOT_TOKEN" \
                             -H "Content-Type: application/json" \
                             -d '{\"content\":\"Build failed ! The old version of the application will stay !\"}'
                         """
@@ -92,8 +92,8 @@ pipeline {
                 success {
                     script {
                         sh """
-                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
-                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            curl -X POST "https://discord.com/api/v9/channels/$env.DISCORD_CHANNEL_ID/messages" \
+                            -H "Authorization: Bot $env.DISCORD_BOT_TOKEN" \
                             -H "Content-Type: application/json" \
                             -d '{\"content\":\"The user acceptance test is valid ! The new application is now online !\"}'
                         """
@@ -102,8 +102,8 @@ pipeline {
                 failure {
                     script {
                         sh """
-                            curl -X POST "https://discord.com/api/v9/channels/${env.DISCORD_CHANNEL_ID}/messages" \
-                            -H "Authorization: Bot ${env.DISCORD_BOT_TOKEN}" \
+                            curl -X POST "https://discord.com/api/v9/channels/$env.DISCORD_CHANNEL_ID/messages" \
+                            -H "Authorization: Bot $env.DISCORD_BOT_TOKEN" \
                             -H "Content-Type: application/json" \
                             -d '{\"content\":\"The user acceptance test is not valid ! Something goes wrong when releasing the app and you need to inspect what happened !\"}'
                         """
