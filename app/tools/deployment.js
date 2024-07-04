@@ -12,9 +12,11 @@ function deploy (req, res) {
 
     try {
         for (const command of commands) {
+            if(command.cmd === 'npm start') {
+                res.status(200).json({ information: "The depployment successfully happened" })
+            }
             execSync(command.cmd, { cwd: process.cwd() })
         }
-        res.status(200).json({ information: "The depployment successfully happend" })
     } catch (e) {
         error(e)
         res.status(500).json({ information: "Something went wrong ! You need to inspect what's going on !" })
