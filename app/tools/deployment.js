@@ -1,7 +1,6 @@
 const { execSync } = require("child_process");
 
 function deploy (req, res) {
-    console.log("Coucou");
     const commands = [
         { cmd: "git add ." },
         { cmd: "git reset --hard" },
