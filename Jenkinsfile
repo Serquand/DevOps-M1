@@ -70,9 +70,7 @@ pipeline {
                     echo 'Deploying...'
                     script {
                         sh """
-                            cd app/
-                            npm install
-                            npm run start
+                            curl -X GET $env.VPS_HOST:3000/refresh
                         """
                     }
                 }
