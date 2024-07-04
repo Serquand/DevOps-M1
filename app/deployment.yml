@@ -13,21 +13,13 @@ services:
       - 27017:27017
 
   backend:
-    build: ./backend
+    build: .
     depends_on:
       - mongo
     environment:
       - MONGO_HOST=mongo
     ports:
-      - "3000:3000"
-
-  frontend:
-    build: ./frontend
-    depends_on:
-      - backend
-      - mongo
-    ports:
-      - "3000:3000"
+      - "3001:3000"
 
 volumes:
   mongodb_data:

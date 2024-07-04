@@ -18,10 +18,11 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.use("/event", eventRouter)
 app.use("/", indexRouter)
 
-mongoose.connect(process.env.MONGODB_URL, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
+const mongoUrl = process.env.MONGO_HOST ?
+    `mongodb://${process.env.MONGO_HOST}:27017/todos` :
+    process.env.MONGODB_URL
+
+mongoose.connect(mongoUrl, { useUnifiedTopology: true, useNewUrlParser: true });
 
 app.listen(PORT, () => {
     console.clear()
