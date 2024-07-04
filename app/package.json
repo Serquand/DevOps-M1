@@ -18,6 +18,6 @@
   "scripts": {
     "test": "jest ./tests/main.test.js",
     "test:user_acceptance": "jest ./tests/userAcceptance.test.js",
-    "start": "npm install && pm2 restart devops_project || pm2 start app.js --name devops_project"
+    "start": "pm2 restart devops_project || pm2 start app.js --name devops_project"
   }
 }
