@@ -7,7 +7,7 @@ function deploy (req, res) {
         { cmd: "git add ." },
         { cmd: "git reset --hard" },
         { cmd: "git pull" },
-        { cmd: "docker compose -f deployment.yml up --build -d" },
+        { cmd: "npm start" },
     ];
 
     try {
