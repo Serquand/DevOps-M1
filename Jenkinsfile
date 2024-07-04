@@ -59,7 +59,7 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'deployment' }
+            agent { label 'worker' }
             when {
                 expression {
                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
