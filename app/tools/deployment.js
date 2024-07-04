@@ -1,5 +1,4 @@
 const { execSync } = require("child_process");
-const { error } = require("console");
 
 function deploy (req, res) {
     console.log("Coucou");
@@ -18,7 +17,6 @@ function deploy (req, res) {
             execSync(command.cmd, { cwd: process.cwd() })
         }
     } catch (e) {
-        error(e)
         res.status(500).json("Something went wrong ! You need to inspect what's going on !")
     };
 }
