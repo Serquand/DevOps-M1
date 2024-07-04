@@ -19,7 +19,7 @@ function deploy (req, res) {
         }
     } catch (e) {
         error(e)
-        res.status(500).json({ information: "Something went wrong ! You need to inspect what's going on !" })
+        res.status(500).json("Something went wrong ! You need to inspect what's going on !")
     };
 }
 
