@@ -13,7 +13,7 @@ function deploy (req, res) {
     try {
         for (const command of commands) {
             if(command.cmd === 'npm start') {
-                res.status(200).json({ information: "The depployment successfully happened" })
+                res.status(200).json("The deployment successfully happened")
             }
             execSync(command.cmd, { cwd: process.cwd() })
         }
