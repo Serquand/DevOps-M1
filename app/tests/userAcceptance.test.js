@@ -21,7 +21,7 @@ describe('User Acceptance Test', () => {
         const toDoTitle = document.querySelector('#todo-container h2').textContent
         const doneTitle = document.querySelector('#done-container h2').textContent
 
-        expect(mainTitle).toBe("DevOps M1 | Project")
+        expect(mainTitle).toBe("DevOps M1 | DevOps")
         expect(toDoTitle).toBe("To Do List")
         expect(doneTitle).toBe("Done List")
     })
